@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="blatherings")
 public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -28,6 +27,9 @@ public class Comment {
 	@NotNull
 	@ManyToOne
 	private Post post;
+	
+	@ManyToOne
+	private Person author;
 	
 	public Comment() {
 		createdOn = new Date();
@@ -57,11 +59,15 @@ public class Comment {
 		this.content = content;
 	}
 
-	public Post getPost() {
-		return post;
-	}
-
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public Person getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Person author) {
+		this.author = author;
 	}
 }

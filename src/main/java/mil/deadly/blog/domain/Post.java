@@ -9,24 +9,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
-@Table(name="ramblings")
 public class Post {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 
 	@NotNull
-	@Size(min=1)
+	@NotEmpty
 	private String title;
 
 	@NotNull
-	@Size(min=1)
+	@NotEmpty
 	private String content;
 	
 	@NotNull
@@ -35,9 +37,18 @@ public class Post {
 	@OneToMany(mappedBy="post", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Comment> comments;
 	
+	@NotNull
+	@ManyToOne
+	private Person author;
+	
+	@NotNull
+	@ManyToMany
+	private List<Tag> tags;
+	
 	public Post() {
 		createdOn = new Date();
 		comments = new ArrayList<Comment>();
+		tags = new ArrayList<Tag>();
 	}
 	
 	public Long getId() {
@@ -55,18 +66,34 @@ public class Post {
 	public String getContent() {
 		return content;
 	}
+	
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
 	public Date getCreatedOn() {
 		return createdOn;
 	}
+	
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
+	
 	public void addComment(Comment comment) {
 		comments.add(comment);
 		comment.setPost(this);
+	}
+
+	public Person getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Person author) {
+		this.author = author;
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
 	}
 
 }
