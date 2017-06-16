@@ -3,6 +3,7 @@ package mil.deadly.blog.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Tag {
 	@NotNull
 	private String value;
 	
-	@ManyToMany(mappedBy="tags")
+	@ManyToMany(mappedBy="tags", cascade=CascadeType.ALL)
 	private List<Post> posts;
 	
 	@Version
@@ -58,5 +59,9 @@ public class Tag {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+	
+	public void addPost(Post post) {
+		this.posts.add(post);
 	}
 }

@@ -95,6 +95,10 @@ public class Post {
 	public List<Comment> getComments() {
 		return comments;
 	}
+	
+	public List<Tag> getTags() {
+		return tags;
+	}
 
 }
 

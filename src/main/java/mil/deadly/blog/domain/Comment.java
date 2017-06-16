@@ -24,7 +24,6 @@ public class Comment {
 	@Size(min=1)
 	private String content;
 	
-	@NotNull
 	@ManyToOne
 	private Post post;
 	
