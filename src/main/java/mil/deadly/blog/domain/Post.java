@@ -4,57 +4,41 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-@Entity
 public class Post {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
-
-	@NotNull
-	@NotEmpty
+	private String id;
 	private String title;
-
-	@NotNull
-	@NotEmpty
 	private String content;
-	
-	@NotNull
 	private Date createdOn;
-	
-	@OneToMany(mappedBy="post", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Comment> comments;
-	
-	@NotNull
-	@ManyToOne
+	@DBRef
 	private Person author;
-	
-	@NotNull
-	@ManyToMany
+	@DBRef
 	private List<Tag> tags;
 	
 	public Post() {
-		createdOn = new Date();
 		comments = new ArrayList<Comment>();
 		tags = new ArrayList<Tag>();
+		createdOn = new Date();
 	}
 	
-	public Long getId() {
+	public Post(String title) {
+		this();
+		this.title = title;
+	}
+	
+	@Override
+	public String toString() {
+		return "[" + id + "] " + title;
+	}
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -81,7 +65,10 @@ public class Post {
 	
 	public void addComment(Comment comment) {
 		comments.add(comment);
-		comment.setPost(this);
+	}
+	
+	public void addTag(Tag tag) {
+		tags.add(tag);
 	}
 
 	public Person getAuthor() {
@@ -96,10 +83,17 @@ public class Post {
 		return comments;
 	}
 	
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
 	public List<Tag> getTags() {
 		return tags;
 	}
-
+	
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
 }
 
 

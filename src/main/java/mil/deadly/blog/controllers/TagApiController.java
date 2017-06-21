@@ -1,10 +1,9 @@
 package mil.deadly.blog.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -24,20 +23,17 @@ import mil.deadly.blog.domain.Tag;
 @RequestMapping("/api/tags")
 public class TagApiController {
 	
-	private EntityManagerFactory factory;
 	
-	public TagApiController(EntityManagerFactory factory) {
-		this.factory = factory;
+	public TagApiController() {
 	}
 	
 	@GetMapping("")
 	public ResponseEntity<?> getAll() {
-		EntityManager manager = factory.createEntityManager();
 		
 		try {
-			List<Tag> tags = manager
-					.createQuery("from Tag t order by t.value", Tag.class)
-					.getResultList();
+			List<Tag> tags = new ArrayList<Tag>(); //manager
+					//.createQuery("from Tag t order by t.value", Tag.class)
+					//.getResultList();
 			return new ResponseEntity<List<Tag>>(tags, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -46,12 +42,13 @@ public class TagApiController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> get(@PathVariable Long id) {
-		EntityManager manager = factory.createEntityManager();
+//		EntityManager manager = factory.createEntityManager();
 		
 		try {
-			Tag tag = manager
-					.createQuery("from Tag t where t.id = " + id, Tag.class)
-					.getSingleResult();
+//			Tag tag = manager
+//					.createQuery("from Tag t where t.id = " + id, Tag.class)
+//					.getSingleResult();
+			Tag tag = new Tag("");
 			return new ResponseEntity<Tag>(tag, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -68,13 +65,13 @@ public class TagApiController {
 			return new ResponseEntity<List<String>>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		
-		EntityManager manager = factory.createEntityManager();
+//		EntityManager manager = factory.createEntityManager();
 		
-		manager.getTransaction().begin();
+//		manager.getTransaction().begin();
 		try
 		{
-			tag = manager.merge(tag);
-			manager.getTransaction().commit();
+//			tag = manager.merge(tag);
+//			manager.getTransaction().commit();
 			return new ResponseEntity<Tag>(tag, HttpStatus.CREATED);
 		}
 		catch(Exception e)
