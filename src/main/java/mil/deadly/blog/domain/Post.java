@@ -14,9 +14,9 @@ public class Post {
 	private String content;
 	private Date createdOn;
 	private List<Comment> comments;
-	@DBRef
+	@DBRef //NOTE: DB reference as a Person author
 	private Person author;
-	@DBRef
+	@DBRef //NOTE: list of tags needs the DB reference as tags will be its own collection and referenced using $ref from within the Post collection
 	private List<Tag> tags;
 	
 	public Post() {
