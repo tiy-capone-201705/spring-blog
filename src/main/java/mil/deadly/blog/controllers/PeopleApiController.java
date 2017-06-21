@@ -37,10 +37,10 @@ public class PeopleApiController {
 		}
 	}
 	
-	@GetMapping("/{firstName}")
-	public ResponseEntity<?> getByFirstName(@PathVariable String firstName) {
+	@GetMapping("/{myId}")
+	public ResponseEntity<?> getByFirstName(@PathVariable("myId") String id) {
 		try {
-			return new ResponseEntity<List<Person>>(repo.findByFirstName(firstName), HttpStatus.OK);
+			return new ResponseEntity<List<Person>>(repo.findById(id), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

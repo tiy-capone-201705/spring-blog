@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PeopleRepository extends MongoRepository<Person, String> { // extends JpaRepository<Person, Long> {
 
-	public List<Person> findByFirstName(String firstName);
+	public List<Person> findById(String id);
 	
 }
