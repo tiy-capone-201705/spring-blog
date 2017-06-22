@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Person {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
+	private String id;
 	
 	@NotNull
 	@Size(min=3, max=40)
@@ -46,7 +46,7 @@ public class Person {
 	private Integer version;
 	
 	public Person() {
-		posts = new ArrayList<Post>();
+		setPosts(new ArrayList<Post>());
 		comments = new ArrayList<Comment>();
 	}
 	
@@ -57,11 +57,11 @@ public class Person {
 		this.email = email;
 	}
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
@@ -95,5 +95,13 @@ public class Person {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 }

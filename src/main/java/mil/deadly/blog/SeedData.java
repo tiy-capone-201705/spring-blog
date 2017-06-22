@@ -7,38 +7,23 @@ import javax.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import mil.deadly.blog.domain.PeopleRepository;
 import mil.deadly.blog.domain.Person;
 import mil.deadly.blog.domain.Tag;
 
 @Configuration
 public class SeedData {
 
-	private EntityManagerFactory factory;
+	private PeopleRepository people;
 
-	public SeedData(EntityManagerFactory factory) {
-		this.factory = factory;
+	public SeedData(PeopleRepository people) {
+		this.people = people;
 	}
 	
 	@PostConstruct
 	public void seed() {
-		EntityManager manager = factory.createEntityManager();
-		
-		manager.getTransaction().begin();
-		
-		try
-		{
-			manager.merge(new Tag("Spring"));
-			manager.merge(new Tag("Java"));
-			manager.merge(new Tag("Turkey"));
-			manager.merge(new Tag("Where is Usha?"));
-			
-			manager.merge(new Person("Mitch", "Ruebush", "mitch.ruebush@capitalone.com"));
-			manager.merge(new Person("Corbyn", "Burnson", "baldguy@yahoo.com"));
-			manager.merge(new Person("Sian", "Liddiard", "welsh_lady@hotmail.com"));
-		}
-		finally
-		{
-			manager.getTransaction().commit();
-		}		
+		people.save(new Person("Mitch", "Ruebush", "mitch.ruebush@capitalone.com"));
+		people.save(new Person("Corbyn", "Burnson", "baldguy@yahoo.com"));
+		people.save(new Person("Sian", "Liddiard", "welsh_lady@hotmail.com"));
 	}
 }

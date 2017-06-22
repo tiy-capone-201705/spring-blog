@@ -54,15 +54,16 @@ public class PostsApiController {
 			return new ResponseEntity<List<String>>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		try {
-			List<Long> tagIds = post.getTags().stream().map(t -> t.getId()).collect(Collectors.toList());
-			List<Tag> postTags = tags.findAll(tagIds);
+//			List<Long> tagIds = post.getTags().stream().map(t -> t.getId()).collect(Collectors.toList());
+//			List<Tag> postTags = tags.findAll(tagIds);
 //			for (Tag tag : postTags) {
 //				tag.addPost(post);
 //			}
-			post.getTags().clear();
-			post.getTags().addAll(postTags);
-			post.setAuthor(peoples.findOne(post.getAuthor().getId()));
-			post = repo.save(post);
+//			post.getTags().clear();
+//			post.getTags().addAll(postTags);
+			Person author = peoples.findOne(post.getAuthor().getId());
+			author.getPosts().add(post);
+			peoples.save(author);
 			return new ResponseEntity<Post>(post, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<Exception>(e, HttpStatus.BAD_REQUEST);
