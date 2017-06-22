@@ -1,0 +1,88 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #FAFAFA;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+body {
+  display: flex;
+  align-content: stretch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-weight: 300;
+}
+
+button, input, textarea, select {
+  font-family: 'Roboto', sans-serif;
+}
+
+blog-ui {
+  flex: 1 0 0px;
+  display: flex;
+}
+
+post-list {
+  display: block;
+  flex: 0 0 200px;
+  overflow-y: auto;
+}
+
+post-details {
+  flex: 1 0 0px;
+  display: block;
+  overflow-y: auto;
+  background-color: white;
+  padding: 8px 16px;
+}
+
+.list {
+  margin: 0;
+  padding: 0 0 0 16px;
+  list-style: none;
+}
+
+.list-header {
+  font-weight: 500;
+  padding-left: 16px;
+  padding-top: 16px;
+}
+
+.list-item {
+  box-sizing: border-box;
+  height: 88px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.list-primary-text {
+  font-size: 16px;
+}
+
+.list-secondary-text {
+  color: rgba(0, 0, 0, .54);  
+}
+
+.post-header {
+  margin-bottom: 32px;
+}
+
+.light-weight {
+  color: rgba(0, 0, 0, .6);
+}
+
+.post-byline {
+  font-weight: 500;
+  margin-top: 8px;
+}

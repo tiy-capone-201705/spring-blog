@@ -1,0 +1,8 @@
+<header class="list-header">Posts</header>
+<ul class="list">
+  <li ng-repeat="post in list.posts" class="list-item" ng-click="list.onSelected({ post: post })">
+    <div class="list-primary-text">{{ post.title }}</div>
+    <div class="list-secondary-text">{{ post.author.lastName }}, {{ post.author.firstName }}</div>
+    <div class="list-secondary-text">{{ post.createdOn | date:'yyyy-MM-dd' }}</div>
+  </li>
+</ul>

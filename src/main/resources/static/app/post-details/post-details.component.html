@@ -1,0 +1,10 @@
+<article>
+  <header class="post-header">
+    <h1>{{ details.post.title }}</h1>
+    <div class="post-byline">By {{ details.post.author.firstName }} {{ details.post.author.lastName }}</div>
+    <div><span class="light-weight">{{ details.post.createdOn | date:'yyyy-MM-dd' }}</span></div>
+  </header>
+  <div class="post-content">
+    {{ details.post.content }}
+  </div>
+</article>
